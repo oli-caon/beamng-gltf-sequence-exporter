@@ -23,7 +23,7 @@ In BeamNG.drive, add the "glTF Sequence Exporter" UI app via the pause menu unde
 
 ## Usage
 
-To get started, record a replay in BeamNG.drive and play it using the Replay UI app. See [BeamNG's documentation](https-external://documentation.beamng.com/getting_started/replay) for help on that.
+To get started, record a replay in BeamNG.drive and play it using the Replay UI app. See [BeamNG's documentation](https://documentation.beamng.com/getting_started/replay) for help on that.
 
 With a replay selected you can choose the settings for your sequence. The timeline shows the current frame number and highlights your start and end range. Note that you can't use this to seek through the replay - use the Replay UI app controls for that.
 

@@ -106,7 +106,7 @@ local function onUpdate(dtReal, dtSim, dtRaw)
 				else
 					gltfSequenceExporter_export.exportFile(filename)
 					log('I', string.format("exported '%s' at %.3f", filename, positionSeconds))
-					guihooks.message("Dry run: Exported frame " .. dumps(filename), 5, "gltfSequenceExporterApp", "bug_report")
+					guihooks.message("Exported frame " .. dumps(filename), 5, "gltfSequenceExporterApp", "bug_report")
 				end
 
 				if M.DEBUG_FRAME_PACING then

@@ -310,10 +310,10 @@ angular.module('beamng.apps')
           return path.replace(/[^\/\.\-\(\)\w\s]/g, '_');
         }
 
-        scope.luaSetDebug = function () {
+        /* scope.luaSetDebug = function () {
           bngApi.engineLua("gltfSequenceExporter_app.DEBUG_DRY_RUN_EXPORT = " + !!scope.dryRunExport);
           bngApi.engineLua("gltfSequenceExporter_app.DEBUG_FRAME_PACING = " + !!scope.logFramePacing);
-        };
+        }; */
 
       }
     };
