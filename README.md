@@ -42,6 +42,5 @@ When you're happy with your settings, press the **Export Sequence** button and t
 - The frame rate of a replay depends on the game's FPS when it was recorded. Try locking your FPS when recording a replay for smoother results. You can still export the replay at whatever frame rate you like but the animation smoothness will depend on the source FPS.
 - Frame pacing is not 100% accurate for exported frames. There is a trade-off between accuracy and export wait times.
 - Sequence file sizes can become quite large, with frame files between 3MB and 15MB. This tool is best used for creating animations featuring mesh deformation and destruction where the geometry changes a lot between frames.
-- You are only able to seek through replays in 1 second increments. This is due to how the replay system works and doesn't seem to be something I can change.
 - Materials properties may not always appear correct and vehicle paint colours are not currently exported. These are limitations of the existing glTF export functionality.
 - This doesn't work with the Vulkan renderer.

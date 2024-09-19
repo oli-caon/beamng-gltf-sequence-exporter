@@ -24,78 +24,78 @@ if not _G['__gpuFlexMesh_t_cdef'] then
   } gpuPrimitive_t;
 
   typedef struct gpuFlexMesh_t {
-    char* meshName;
+    const char* meshName;
     uint32_t primitivesCount;
-    gpuPrimitive_t* primitives;
+    const gpuPrimitive_t* primitives;
   } gpuFlexMesh_t;
 
   typedef struct gpuPropMesh_t {
-    char* meshName;
+    const char* meshName;
     float position[3];
     float rotation[4];
 
     uint32_t indicesCount;
-    uint32_t* indices;
+    const uint32_t* indices;
 
     uint32_t verticesCount;
-    float* vertices;
+    const float* vertices;
 
     uint32_t normalsCount;
-    float* normals;
+    const float* normals;
 
     uint32_t tangentsCount;
-    float* tangents;
+    const float* tangents;
 
     uint32_t uv1Count;
-    float* uv1; // Vector2
+    const float* uv1; // Vector2
 
     uint32_t uv2Count;
-    float* uv2; // Vector2
+    const float* uv2; // Vector2
 
     uint32_t vertColorsCount;
-    uint32_t* vertColors; // RGB packed
+    const uint32_t* vertColors; // RGB packed
 
     uint32_t primitivesCount;
-    gpuPrimitive_t* primitives;
+    const gpuPrimitive_t* primitives;
   } gpuPropMesh_t;
 
   typedef struct gpuMesh_t {
     uint32_t indicesCount;
-    uint32_t* indices;
+    const uint32_t* indices;
 
     uint32_t verticesCount;
-    float* vertices;
+    const float* vertices;
 
     uint32_t normalsCount;
-    float* normals;
+    const float* normals;
 
     uint32_t tangentsCount;
-    float* tangents;
+    const float* tangents;
 
     uint32_t uv1Count;
-    float* uv1;
+    const float* uv1;
 
     uint32_t uv2Count;
-    float* uv2;
+    const float* uv2;
 
     uint32_t vertColorsCount;
-    uint32_t* vertColors;
+    const uint32_t* vertColors;
 
     uint32_t flexmeshesCount;
-    gpuFlexMesh_t* flexmeshes;
+    const gpuFlexMesh_t* flexmeshes;
 
     uint32_t propmeshesCount;
-    gpuPropMesh_t* propmeshes;
+    const gpuPropMesh_t* propmeshes;
 
     bool dataIsReady;
   } gpuMesh_t;
 
-  gpuMesh_t* bng_getGPUMesh(int id);
-  void bng_freeGPUMesh(int id, gpuMesh_t* meshInfo);
+  const gpuMesh_t* bng_getGPUMesh(int id);
+  void bng_freeGPUMesh(int id, const gpuMesh_t* meshInfo);
 
-  unsigned char* bng_base64_encode(unsigned char* src, size_t len, size_t* out_len);
-  unsigned char* bng_base64_decode(unsigned char* src, size_t len, size_t* out_len);
-  void bng_base64_free(unsigned char* buffer);
+  const unsigned char* bng_base64_encode(const unsigned char* src, size_t len, const size_t* out_len);
+  const unsigned char* bng_base64_decode(const unsigned char* src, size_t len, const size_t* out_len);
+  void bng_base64_free(const unsigned char* buffer);
   ]]
 
   rawset(_G, '__gpuFlexMesh_t_cdef', true)
