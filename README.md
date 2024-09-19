@@ -8,7 +8,7 @@ Use my Blender add-on [BeamNG glTF Sequence Importer](https://github.com/oli-cao
 
 ## Installation
 
-Download this repository as a zip file and place it in the mods folder in your BeamNG.drive user folder. See [BeamNG's tutorial](https://documentation.beamng.com/tutorials/mods/installing-mods/#manual-installation) for more info.
+Download the `glTF_Sequence_Exporter.zip` file from the [latest release](https://github.com/oli-caon/beamng-gltf-sequence-exporter/releases) and place it in the mods folder in your BeamNG.drive user folder. See [BeamNG's tutorial](https://documentation.beamng.com/tutorials/mods/installing-mods/#manual-installation) for help on manually installing mods.
 
 In BeamNG.drive, add the "glTF Sequence Exporter" UI app via the pause menu under the "UI Apps" tab.
 
