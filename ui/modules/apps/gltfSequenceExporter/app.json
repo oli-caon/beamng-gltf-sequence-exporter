@@ -1,0 +1,18 @@
+{
+  "name": "glTF Sequence Exporter",
+  "author": "Oli Caon",
+  "version": "0.1",
+  "description": "Export a replay as a glTF sequence.",
+  "types": [
+    "ui.apps.categories.utility"
+  ],
+  "directive": "gltfSequenceExporter",
+  "domElement": "<gltf-sequence-exporter></gltf-sequence-exporter>",
+  "css": {
+    "width": "300px",
+    "height": "350px",
+    "top": "200px",
+    "left": "200px"
+  },
+  "preserveAspectRatio": false
+}

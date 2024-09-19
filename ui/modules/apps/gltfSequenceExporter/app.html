@@ -1,0 +1,187 @@
+<div id="gltfSequenceApp" class="bngApp"
+  style="color: #e8e8e8; max-height: 100%; width: 100%; text-shadow: 0px 1px 2px #000000; position: relative; padding: 5px; display: flex; flex-direction: column; justify-content: space-between; font-size: 15px; background: rgba(107, 107, 107, 0.808);">
+  <link type="text/css" rel="stylesheet" href="/ui/modules/apps/gltfSequenceExporter/app.css" />
+
+  <section id="framesSection">
+    <span>
+      {{ currentFrame | integer }} / {{ totalFrames | integer }}
+      <md-tooltip md-delay="600" autohide>
+        {{ currentFrame | number:2 }} / {{ totalFrames | number:2 }}
+      </md-tooltip>
+    </span>
+    <md-slider md-no-ink ng-model="positionSeconds" min="0" max="{{totalSeconds}}" step="0.00001"
+      ng-style="timelineStyle" ng-disabled="true" style="width: 80%" />
+  </section>
+
+  <section id="propertiesSection" class="scrollable">
+    <div class="panel">
+      <div class="info" ng-if="isVulkanEnabled">
+        <h2 style="color: red">{{:: 'ui.options.graphics.Warning' | translate}}</h2>
+        <p>glTF export is not compatible with the Vulkan renderer. <br> From the 'GLTF 3D Exporter' app:</p>
+        <blockquote>"{{:: 'ui.apps.threedexport.vulkanIncompatible' | translate}}"</blockquote>
+      </div>
+      <div class="info" ng-if="!replayReady && !isVulkanEnabled">
+        Select a replay in the Replay UI app to get started.
+      </div>
+
+      <div class="list">
+        <div class="button-group">
+          <div class="button-tooltip">
+            <button ng-disabled="exportInProgress || !replayReady || isVulkanEnabled"
+              ng-click="frameStart = Math.floor(currentFrame)">
+              <div>
+                <div style="width: 20px; margin: -10px 1px; transform: scaleX(1);">
+                  <bng-icon type="sprite" src="frameButtonIconL"></bng-icon>
+                </div>
+                <span class="label">Set Start</span>
+              </div>
+            </button>
+            <md-tooltip md-delay="600" autohide>Set sequence start frame to the current frame.</md-tooltip>
+          </div>
+          <div class="button-tooltip">
+            <button ng-disabled="exportInProgress || !replayReady || isVulkanEnabled"
+              ng-click="frameEnd = Math.floor(currentFrame)">
+              <div>
+                <div style="width: 20px; margin: -10px 1px; transform: scaleX(-1);">
+                  <bng-icon type="sprite" src="frameButtonIconR"></bng-icon>
+                </div>
+                <span class="label">Set End</span>
+              </div>
+            </button>
+            <md-tooltip md-delay="600" autohide>Set sequence end frame to the current frame.</md-tooltip>
+          </div>
+        </div>
+
+        <div class="button-tooltip" ng-hide="isOriginSet">
+          <button ng-click="setOrigin()" ng-disabled="exportInProgress || !replayReady || isVulkanEnabled">
+            <div>
+              <md-icon> my_location </md-icon>
+              <span class="label">Set Origin</span>
+            </div>
+          </button>
+          <md-tooltip md-delay="600" autohide ng-hide="isOriginSet">Set the origin of the glTF scene to the selected
+            vehicle's current
+            position.</md-tooltip>
+        </div>
+        <div class="button-tooltip" ng-show="isOriginSet">
+          <button ng-click="clearOrigin()" ng-disabled="exportInProgress || !replayReady || isVulkanEnabled">
+            <div>
+              <md-icon> location_disabled </md-icon>
+              <span class="label">Clear Origin</span>
+            </div>
+          </button>
+          <md-tooltip md-delay="600" autohide ng-show="isOriginSet">Reset the glTF scene origin to the world
+            origin.</md-tooltip>
+        </div>
+        <div class="button-tooltip" ng-hide="exportInProgress">
+          <button
+            ng-disabled="exportInProgress || !replayReady || framePropertiesForm.$invalid || !filenamePrefix || isVulkanEnabled"
+            ng-click="startExport()">
+            <div>
+              <md-icon> exit_to_app </md-icon>
+              <span class="label">Export Sequence</span>
+            </div>
+          </button>
+          <md-tooltip md-delay="600" autohide>Begin exporting the sequence with the chosen settings.</md-tooltip>
+        </div>
+        <div class="button-tooltip" ng-show="exportInProgress">
+          <button class="loading" ng-click="cancelExport()" ng-style="loadingButtonStyle">
+            <!-- <div ng-hide="showCancelButton">
+              <span class="label" ng-hide="showCancelButton">Exporting...</span>
+            </div> -->
+            <div>
+              <md-icon> close </md-icon>
+              <span class="label">Cancel Export</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <details class="panel" ng-disabled="!replayReady || isVulkanEnabled" ng-open="replayReady && !isVulkanEnabled">
+      <summary>Animation</summary>
+
+      <div class="list">
+        <form name="framePropertiesForm" layout="column" ng-keyup="keyPressed($event)">
+          <div class="property" ng-repeat="(name,prop) in frameProperties">
+            <span class="label"> {{ prop.label }} </span>
+            <input class="value" required type="number" id="{{name}}" name="{{name}}" ng-model="prop.userValue"
+              min="{{prop.min}}" max="{{prop.max}}" step="1" name="{{name}}" ng-click="inputClicked($event)"
+              ng-blur="inputBlurred($event)" ng-focus="selectInputText($event)"
+              ng-disabled="exportInProgress || !replayReady || isVulkanEnabled" />
+            <md-tooltip md-delay="600" autohide> {{ prop.tooltip }} </md-tooltip>
+          </div>
+          <input type="submit" ng-click="formSubmit()" value="Apply" style="display: none !important;" />
+        </form>
+
+        <div class="info" ng-show="framePropertiesForm.$valid">
+          {{ animLength = (frameEnd - frameStart + 1) | integer }} frame{{animLength
+          != 1 ? 's' : ''}} ({{ animLength / frameRate | number:2 }} s).
+        </div>
+        <div class="info" ng-show="framePropertiesForm.$invalid">
+          <md-icon> warning </md-icon>
+          Invalid parameters.
+        </div>
+      </div>
+    </details>
+    <details class="panel" ng-disabled="!replayReady || isVulkanEnabled">
+      <summary>Export Options</summary>
+      <div class="list">
+
+        <div class="property inline-button">
+          <input class="value" type="text" ng-model="filenamePrefix" required spellcheck="false"
+            ng-disabled="exportInProgress || !replayReady" ng-init="enablePathTooltip=true"
+            ng-focus="selectInputText($event)" pattern="[\/\.\-\(\)\w\s]*">
+          <md-tooltip md-delay="600" autohide ng-show="enablePathTooltip">
+            Export path relative to the BeamNG.drive user folder. The frame number and file format extension will be
+            appended.
+          </md-tooltip>
+          <button ng-click="openDirectory()" ng-disabled="!replayReady || isVulkanEnabled || !filenamePrefix"
+            ng-mouseenter="enablePathTooltip=false" ng-mouseleave="enablePathTooltip=true">
+            <md-icon>folder</md-icon>
+            <md-tooltip md-delay="600" autohide> Open path in file explorer if it exists. </md-tooltip>
+          </button>
+        </div>
+      </div>
+      <div class="list">
+        <div class="property" ng-repeat="property in boolProperties">
+          <span class="label"> {{ property.label }} </span>
+          <div class="value" ng-disabled="exportInProgress || !replayReady || isVulkanEnabled">
+            <md-checkbox type="checkbox" md-no-ink ng-model="property.value"
+              ng-disabled="exportInProgress || !replayReady">{{
+              property.name }}</md-checkbox>
+            <md-tooltip md-delay="600" autohide> {{ property.tooltip }} </md-tooltip>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- <details class="panel">
+      <summary>Debug</summary>
+      <div class="list">
+        <label>
+          <input type="checkbox" ng-model="exportInProgress"></input>
+          exportInProgress
+        </label>
+        <label>
+          <input type="checkbox" ng-model="replayReady"></input>
+          replayReady
+        </label>
+        <label>
+          <input type="checkbox" ng-model="isVulkanEnabled"></input>
+          isVulkanEnabled
+        </label>
+        <label>
+          <input type="checkbox" ng-model="dryRunExport" ng-init="dryRunExport=false" ng-change="luaSetDebug()"></input>
+          Lua: dryRunExport
+        </label>
+        <label>
+          <input type="checkbox" ng-model="logFramePacing" ng-init="logFramePacing=false"
+            ng-change="luaSetDebug()"></input>
+          Lua: logFramePacing
+        </label>
+      </div>
+    </details> -->
+
+  </section>
+</div>
