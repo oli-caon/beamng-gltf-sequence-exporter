@@ -1,12 +1,18 @@
 # glTF Sequence Exporter Mod for BeamNG.drive
 
-A mod to export a BeamNG.drive replay as a sequence of glTF files.
+A mod to export a BeamNG.drive replay as a sequence of glTF files. 
 
 This mod takes advantage of BeamNG.drive's Replay feature and the existing experimental glTF exporter to export each frame as a .glb/.gltf file.
+
+[Download glTF Sequence Exporter from BeamNG's Official Repository](https://www.beamng.com/resources/gltf-sequence-exporter.32093/).
 
 Use my Blender add-on [BeamNG glTF Sequence Importer](https://github.com/oli-caon/beamng-gltf-sequence-importer) to import the sequence into Blender as an animation.
 
 ## Installation
+
+The mod is available [here at BeamNG's official mod repository](https://www.beamng.com/resources/gltf-sequence-exporter.32093/). Subscribe to it in-game or install the .zip from the website.
+
+### Manual Installation
 
 Download the `glTF_Sequence_Exporter.zip` file from the [latest release](https://github.com/oli-caon/beamng-gltf-sequence-exporter/releases) and place it in the mods folder in your BeamNG.drive user folder. See [BeamNG's tutorial](https://documentation.beamng.com/tutorials/mods/installing-mods/#manual-installation) for help on manually installing mods.
 
