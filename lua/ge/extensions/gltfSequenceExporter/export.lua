@@ -3,6 +3,7 @@
 -- If a copy of the bCDDL was not distributed with this
 -- file, You can obtain one at http://beamng.com/bCDDL-1.1.txt
 
+-- Modified from "BeamNG.drive/lua/ge/extensions/util/export.lua"
 -- Updated for BeamNG.drive v0.34+
 
 local M = {}
@@ -15,17 +16,6 @@ local jbeamIO = require('jbeam/io')
 local EXTENSION_JBEAM = "BNG_JBeamData"
 local EXTENSION_DIRECTION = "BNG_Direction"
 local abs = math.abs
-
-if not _G['__gpuFlexMesh_t_cdef'] then
-  ffi.cdef[[
-  typedef struct gpuPrimitive_t {
-    uint32_t startIndex;
-    uint32_t indexCount;
-    uint32_t materialId;
-  } gpuPrimitive_t;
-  ]]
-  rawset(_G, '__gpuFlexMesh_t_cdef', true)
-end
 
 -- constants
 local base64Prefix = "data:application/octet-stream;base64,"

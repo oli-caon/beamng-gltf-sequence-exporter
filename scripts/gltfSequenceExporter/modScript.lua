@@ -1,2 +1,2 @@
-setExtensionUnloadMode("gltfSequenceExporter_app", "manual")
-setExtensionUnloadMode("gltfSequenceExporter_export", "manual")
+extensions.load("gltfSequenceExporter_app")
+extensions.load("gltfSequenceExporter_export")

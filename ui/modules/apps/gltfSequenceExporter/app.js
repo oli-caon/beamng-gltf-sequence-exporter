@@ -32,10 +32,6 @@ angular.module('beamng.apps')
         scope.frameStart;
         scope.frameEnd;
 
-        bngApi.engineLua('gltfSequenceExporter_export.checkVulkan()', function (result) {
-          scope.isVulkanEnabled = result;
-        });
-
         scope.setOrigin = function () {
           bngApi.engineLua('gltfSequenceExporter_export.setOrigin()');
           scope.isOriginSet = true;
