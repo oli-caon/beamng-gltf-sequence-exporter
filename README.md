@@ -1,6 +1,6 @@
 # glTF Sequence Exporter Mod for BeamNG.drive
 
-A mod to export a BeamNG.drive replay as a sequence of glTF files. 
+A mod to export a BeamNG.drive replay as a sequence of glTF files. Updated for BeamNG.drive v0.38
 
 This mod takes advantage of BeamNG.drive's Replay feature and the existing experimental glTF exporter to export each frame as a .glb/.gltf file.
 
@@ -35,8 +35,8 @@ With a replay selected you can choose the settings for your sequence. The timeli
 
 The **Set/Clear Origin** button will use your vehicle's current position for the origin position in the glTF files. When a new replay is loaded the origin is set to the first frame. If you clear the origin, the game's world origin is used, which may mean the exported vehicle ends up very far away from the scene's origin.
 
-The export path is relative to your `BeamNG.drive/{version}/` folder and includes a prefix for each frame's filename.
-For example, with the file path set to `/vehicles/pickup/export_frame_`, frame 1 would be exported to `C:\Users\{user}\AppData\Local\BeamNG.drive\{version}\vehicles\pickup\export_frame_00001.glb`.  
+The export path is relative to your BeamNG user folder and includes a prefix for each frame's filename.
+For example, with the file path set to `/vehicles/pickup/export_frame_`, frame 1 would be exported to `C:\Users\{user}\AppData\Local\BeamNG\BeamNG.drive\current\vehicles\pickup\export_frame_00001.glb`.  
 This property is updated whenever you switch vehicles. Be aware that existing files with the same name will be overwritten without warning.
 
 The default export options should be fine for most cases. I recommended you keep **External Textures**  enabled otherwise every frame will be exported with its own copy of the textures, which can quickly add up to several gigabytes for even a short sequence.
